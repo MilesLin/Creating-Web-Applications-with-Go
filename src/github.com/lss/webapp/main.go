@@ -9,26 +9,25 @@ import (
 )
 
 func main() {
-	templates := populdateTemplates()
-	http.HandleFunc("/", func(w http.ResponseWriter, r * http.Request) {
+	templates := populateTemplates()
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		requestedFile := r.URL.Path[1:]
-		t := templates[requestedFile + ".html"]
-		if t != nil {
-			err := t.Execute(w, nil)
+		template := templates[requestedFile+".html"]
+		if template != nil {
+			err := template.Execute(w, nil)
 			if err != nil {
 				log.Println(err)
 			}
 		} else {
-			w.WriteHeader(http.StatusNotFound)
+			w.WriteHeader(404)
 		}
 	})
 	http.Handle("/img/", http.FileServer(http.Dir("public")))
 	http.Handle("/css/", http.FileServer(http.Dir("public")))
 	http.ListenAndServe(":8000", nil)
-	// http.ListenAndServe(":8000", http.FileServer(http.Dir("public")))
 }
 
-func populdateTemplates() map[string]*template.Template {
+func populateTemplates() map[string]*template.Template {
 	result := make(map[string]*template.Template)
 	const basePath = "templates"
 	layout := template.Must(template.ParseFiles(basePath + "/_layout.html"))
