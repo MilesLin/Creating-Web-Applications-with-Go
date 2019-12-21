@@ -21,22 +21,21 @@ func (gm *GzipMiddleware) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		gm.Next.ServeHTTP(w, r)
 		return
 	}
-
 	w.Header().Add("Content-Encoding", "gzip")
 	gzipwriter := gzip.NewWriter(w)
 	defer gzipwriter.Close()
-	grw := gizpResponseWriter {
+	grw := gzipResponseWriter{
 		ResponseWriter: w,
-		Writer: gzipwriter,
+		Writer:         gzipwriter,
 	}
 	gm.Next.ServeHTTP(grw, r)
 }
 
-type gizpResponseWriter struct {
+type gzipResponseWriter struct {
 	http.ResponseWriter
 	io.Writer
 }
 
-func (grw gizpResponseWriter) Write(data []byte) (int, error) {
+func (grw gzipResponseWriter) Write(data []byte) (int, error) {
 	return grw.Writer.Write(data)
 }
