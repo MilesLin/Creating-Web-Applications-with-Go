@@ -5,7 +5,6 @@ import (
 	"html/template"
 	"log"
 	"net/http"
-
 	"creating-web-applications-go/src/github.com/lss/webapp/viewmodel"
 )
 
