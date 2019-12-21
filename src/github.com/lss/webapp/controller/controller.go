@@ -8,6 +8,7 @@ import (
 var (
 	homeController home
 	shopController shop
+	standLocatorController standLocator
 )
 
 func Startup(templates map[string]*template.Template) {
@@ -19,6 +20,7 @@ func Startup(templates map[string]*template.Template) {
 	shopController.productTemplate = templates["shop_detail.html"]
 	homeController.registerRoutes()
 	shopController.registerRoutes()
+	standLocatorController.registerRoutes()
 	http.Handle("/img/", http.FileServer(http.Dir("public")))
 	http.Handle("/css/", http.FileServer(http.Dir("public")))
 }
