@@ -1,12 +1,8 @@
-To install local assets:
+This is the course pratice from [Creating Web Applications with Go](https://app.pluralsight.com/library/courses/creating-web-applications-go-update/table-of-contents)
 
-* install NodeJs (https://nodejs.org)
-* install `grunt-cli` globally via `npm install -g grunt-cli`
-* run `npm install` from the root directory of the project
-* run `grunt` from the root directory of the project to compile CSS
+It uses postgresql in the demo, which I uploaded to docker hub https://hub.docker.com/repository/docker/mileslin/go_lab_postgresql
 
-To run the application:
-* install `http-server` via `npm install -g http-server`
-* run `http-server` in application's root directory
-* navigate to `http://localhost:8080/html/home.html`
-
+`docker run -d mileslin/go_lab_postgresql`
+* database: lss
+* user: postgres
+* password: 2wsx#EDC
