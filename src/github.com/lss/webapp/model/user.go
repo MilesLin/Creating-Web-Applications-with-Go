@@ -3,6 +3,8 @@ package model
 import(
 	"fmt"
 	"database/sql"
+	"time"
+	"log"
 )
 
 const passwordSalt = "sdfjklsdjfvoi72384234uklsjdszdxncv09823oweqiproweqxdcvxcz"
@@ -34,6 +36,22 @@ func Login(email, password string) (*User, error) {
 		case err != nil:
 			return nil, err
 	}
+
+	t := time.Now()
+	
+	ur, err := db.Exec(`
+		UPDATE myuser
+		SET lastlogin = $1
+		WHERE email = $2
+		AND password = $3`, 
+	  t, email, password)
+	
+	if err != nil {
+		log.Printf("failed to update login time")
+	}
+
+	fmt.Println(ur)
+
 	return result, nil
 
 
