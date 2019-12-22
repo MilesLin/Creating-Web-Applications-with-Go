@@ -6,3 +6,15 @@ It uses postgresql in the demo, which I uploaded to docker hub https://hub.docke
 * database: lss
 * user: postgres
 * password: 2wsx#EDC
+
+
+**Other commands:**
+
+Gen TLS Key
+
+`go run C:\Go\src\crypto\tls\generate_cert.go -host localhost`
+
+snapshot profile
+
+`go tool pprof http://localhost:8081/debug/pprof/heap`
+
