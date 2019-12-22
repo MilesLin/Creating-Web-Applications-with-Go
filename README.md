@@ -1,4 +1,4 @@
-This is the course pratice from [Creating Web Applications with Go](https://app.pluralsight.com/library/courses/creating-web-applications-go-update/table-of-contents)
+This is the course practice from [Creating Web Applications with Go](https://app.pluralsight.com/library/courses/creating-web-applications-go-update/table-of-contents)
 
 It uses postgresql in the demo, which I uploaded to docker hub https://hub.docker.com/repository/docker/mileslin/go_lab_postgresql
 
