@@ -5,15 +5,31 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
-
+	"fmt"
+	"log"
+	"database/sql"
 	"creating-web-applications-go/src/github.com/lss/webapp/controller"
 	"creating-web-applications-go/src/github.com/lss/webapp/middleware"
+	"creating-web-applications-go/src/github.com/lss/webapp/model"
+	_ "github.com/lib/pq"
 )
 
 func main() {
 	templates := populateTemplates()
+	db := connectToDatabase()
+	defer db.Close()
 	controller.Startup(templates)
 	http.ListenAndServe(":8000", &middleware.TimeoutMiddleware{new(middleware.GzipMiddleware)})
+}
+
+func connectToDatabase() *sql.DB {
+	// db, err := sql.Open("postgres", "postgres://postgres:'2wsx#EDC'@localhost/lss?sslmode=disable")
+	db, err := sql.Open("postgres", "user=postgres password=2wsx#EDC dbname=lss sslmode=disable")
+	if err != nil {
+		log.Fatalln(fmt.Errorf("Unable to connect to database: %v", err))
+	}
+	model.SetDatabase(db)
+	return db
 }
 
 func populateTemplates() map[string]*template.Template {
