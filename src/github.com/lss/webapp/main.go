@@ -12,6 +12,7 @@ import (
 	"creating-web-applications-go/src/github.com/lss/webapp/middleware"
 	"creating-web-applications-go/src/github.com/lss/webapp/model"
 	_ "github.com/lib/pq"
+	_ "net/http/pprof"
 )
 
 func main() {
@@ -20,8 +21,8 @@ func main() {
 	defer db.Close()
 	controller.Startup(templates)
 	// http.ListenAndServe(":8000", &middleware.TimeoutMiddleware{new(middleware.GzipMiddleware)})
+	go http.ListenAndServe(":8081", nil)
 	http.ListenAndServeTLS(":8000", "cert.pem", "key.pem", &middleware.TimeoutMiddleware{new(middleware.GzipMiddleware)})
-	// http.ListenAndServeTLS(":8000", "cert.pem", "key.pem", nil)
 }
 
 func connectToDatabase() *sql.DB {
